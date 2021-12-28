@@ -1,29 +1,68 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
+import Vue from "vue";
+import VueRouter from "vue-router";
 
-Vue.use(VueRouter)
+Vue.use(VueRouter);
 
 const routes = [
   {
-    path: '/',
-    name: 'Home',
-    component: Home
+    path: "/",
+    name: "Home",
+    component: () =>import("@/views/Home.vue"),
   },
   {
-    path: '/about',
-    name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
-  }
-]
+    path: "/login",
+    name: "Login",
+    meta: { layout: "empty" },
+    component: () => import("@/views/Login.vue"),
+  },
+  {
+    path: "/categories",
+    name: "categories",
+    meta: { layout: "main" },
+    component: () => import("@/views/Categories.vue"),
+  },
+  {
+    path: "/detail",
+    name: "detail",
+    meta: { layout: "main" },
+    component: () => import("@/views/Detail.vue"),
+  },
+  {
+    path: "/hstory",
+    name: "history",
+    meta: { layout: "main" },
+    component: () => import("@/views/History.vue"),
+  },
+  {
+    path: "/planing",
+    name: "planing",
+    meta: { layout: "main" },
+    component: () => import("@/views/Planing.vue"),
+  },
+  {
+    path: "/profile",
+    name: "profile",
+    meta: { layout: "main" },
+    component: () => import("@/views/Profile.vue"),
+  },
+  {
+    path: "/record",
+    name: "record",
+    meta: { layout: "main" },
+    component: () => import("@/views/Record.vue"),
+  },
+  {
+    path: "/register",
+    name: "register",
+    meta: { layout: "empty" },
+    component: () => import("@/views/Register.vue"),
+  },
+];
 
 const router = new VueRouter({
-  mode: 'history',
+  mode: "history",
   base: process.env.BASE_URL,
-  routes
-})
+  routes,
+});
 
-export default router
+export default router;
