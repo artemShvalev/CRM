@@ -11,7 +11,7 @@ const routes = [
   },
   {
     path: "/login",
-    name: "Login",
+    name: "login",
     meta: { layout: "empty" },
     component: () => import("@/views/Login.vue"),
   },
@@ -28,7 +28,7 @@ const routes = [
     component: () => import("@/views/Detail.vue"),
   },
   {
-    path: "/hstory",
+    path: "/history",
     name: "history",
     meta: { layout: "main" },
     component: () => import("@/views/History.vue"),
