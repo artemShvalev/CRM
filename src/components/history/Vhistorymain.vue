@@ -29,7 +29,7 @@
                   </td>
                   <td>
                     <button class="btn-small btn">
-                      <i class="material-icons">open_in_new</i>
+                      <v-icon>open_in_new</v-icon>
                     </button>
                   </td>
                 </tr>

@@ -30,7 +30,7 @@
 
       <v-btn type="submit" light color="green" text="white">
         <a  href="#">
-          <i class="large material-icons">add</i>
+          <v-icon>add</v-icon>
         </a>
       </v-btn>
     </v-main>

@@ -10,9 +10,9 @@
         <v-text-field id="limit" type="text" />
 
 
-      <v-btn type="submit" light color="green" text="white">
+      <v-btn type="submit" light color="green" :text="true">
         Создать
-        <i class="material-icons right">send</i>
+        <v-icon class="material-icons right">send</v-icon>
       </v-btn>
     </v-form>
   </v-app>

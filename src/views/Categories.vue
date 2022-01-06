@@ -1,8 +1,10 @@
 <template>
   <v-app app>
+  <v-main>
   <Vbar/>
   <Vnav/>
   <Vccategoriesmain/>
+  </v-main>
   </v-app>
 </template>
 

@@ -13,9 +13,9 @@
         <v-text-field id="limit" type="number" />
 
 
-      <v-btn type="submit" light color="green" text="white">
+      <v-btn type="submit" light color="green" :text="true">
         Обновить
-        <i class="material-icons right">send</i>
+        <v-icon>send</v-icon>
       </v-btn>
     </v-form>
   </v-app>

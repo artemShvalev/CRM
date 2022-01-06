@@ -1,7 +1,7 @@
 <template>
       <v-app-bar app>
       <a href="#">
-        <i>dehaze</i>
+        <v-icon>dehaze</v-icon>
       </a>
       <span class="mx-3">12.12.12</span>
 
@@ -37,3 +37,9 @@
       </v-btn>
     </v-app-bar>
 </template>
+
+<style scoped>
+a{
+  outline: none;
+}
+</style>
