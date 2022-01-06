@@ -1,8 +1,6 @@
 <template>
       <v-app-bar app>
-      <a href="#">
         <v-icon>dehaze</v-icon>
-      </a>
       <span class="mx-3">12.12.12</span>
 
       <v-menu offset-y class="d-flex">
@@ -38,7 +36,7 @@
     </v-app-bar>
 </template>
 
-<style scoped>
+<style>
 a{
   outline: none;
 }
