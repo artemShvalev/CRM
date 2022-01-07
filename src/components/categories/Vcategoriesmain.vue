@@ -1,8 +1,8 @@
 <template>
 <div>
     <h3>Категории</h3>
-    <v-main>
-      <v-container>
+    <v-main >
+      <v-container fluid>
       <v-row class="d-flex justify-space-between">
       <Vcategoriescreate/>
       <Vcategoriesedit/>

@@ -6,7 +6,7 @@
           <v-card class="light-green" elevation="5" height="200">
             <v-card-title class="card-title">Счет в валюте</v-card-title>
             <v-divider />
-            <v-card-text><h4>12.0 Р</h4></v-card-text>
+            <v-card-text><h2>12.0 Р</h2></v-card-text>
           </v-card>
         </v-container>
 
@@ -53,5 +53,15 @@
           </v-card>
         </v-container>
       </v-container>
+      <VMainBtn/>
     </v-main>
 </template>
+
+<script>
+import VMainBtn from "./VMainBtn"
+export default {
+  components: {
+    VMainBtn
+  }
+}
+</script>

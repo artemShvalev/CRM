@@ -28,7 +28,7 @@
     </v-form>
   </v-container>
 
-      <v-btn type="submit" light color="green" text="white">
+      <v-btn type="submit" light color="green">
         <a  href="#">
           <v-icon>add</v-icon>
         </a>

@@ -1,21 +1,40 @@
 <template>
-    <v-navigation-drawer app >
+<div>
+    <v-navigation-drawer app @isOpen="drawer = !drawer">
       <v-list>
       <v-list-item>
-        <a href="#">Счет</a>
+        <router-link to="/">Счет</router-link>
       </v-list-item>
       <v-list-item>
-        <a href="#">История</a>
+        <router-link to="/history">История</router-link>
       </v-list-item>
       <v-list-item>
-        <a href="#">Планирование</a>
+        <router-link to="/planing">Планирование</router-link>
       </v-list-item>
       <v-list-item>
-        <a href="#">Новая запись</a>
+        <router-link to="/record">Новая запись</router-link>
       </v-list-item>
       <v-list-item>
-        <a href="#">Категории</a>
+        <router-link to="/categories">Категории</router-link>
       </v-list-item>
       </v-list>
     </v-navigation-drawer>
+    </div>
 </template>
+
+<script>
+import {mapMutations} from "vuex"
+export default {
+  props: {
+    drawer: {
+      type: Boolean,
+      required: true
+    }
+  },
+  methods:{
+    ...mapMutations([
+      'isOpen'
+    ])
+  }
+}
+</script>

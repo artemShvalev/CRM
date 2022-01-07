@@ -1,7 +1,7 @@
 <template>
       <v-app-bar app>
-        <v-icon>dehaze</v-icon>
-      <span class="mx-3">12.12.12</span>
+        <v-app-bar-nav-icon @click="isOpen"></v-app-bar-nav-icon>
+          <span class="mx-3">{{date | date('datetime')}}</span>
 
       <v-menu offset-y class="d-flex">
         <template v-slot:activator="{ on, attrs }">
@@ -21,12 +21,12 @@
         <v-list id="dropdown">
           <v-list-item>
             <v-icon class="mx-1" color="green">account_circle</v-icon>
-            <a href="#"> Профиль </a>
+            <router-link to="/profile"> Профиль </router-link>
           </v-list-item>
 
           <v-list-item>
             <v-icon class="mx-1" color="green">assignment_return</v-icon>
-            <a href="#"> Выйти </a>
+            <a href="#" @click.prevent="logout"> Выйти </a>
           </v-list-item>
         </v-list>
       </v-menu>
@@ -35,6 +35,28 @@
       </v-btn>
     </v-app-bar>
 </template>
+
+<script>
+export default {
+  data: () => ({
+    date: new Date(),
+    interval: null
+  }),
+  methods: {
+    logout(){
+     this.$router.push('/login?message=logout') 
+    }
+  },
+  mounted() {
+   this.interval = setInterval(() => {
+      this.date = new Date()
+    }, 1000);
+  },
+  beforeDestroy() {
+    clearInterval(this.interval)
+  }
+}
+</script>
 
 <style>
 a{
