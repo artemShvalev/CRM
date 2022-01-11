@@ -29,6 +29,7 @@
             <a href="#" @click.prevent="logout"> Выйти </a>
           </v-list-item>
         </v-list>
+        <VAlert v-if="logout === true"/>
       </v-menu>
       <v-btn class="btn-small right">
         <i class="material-icons">refresh</i>
@@ -37,7 +38,9 @@
 </template>
 
 <script>
+import VAlert from './VAlert.vue'
 export default {
+  components: {VAlert},
   data: () => ({
     date: new Date(),
     interval: null
