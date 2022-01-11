@@ -1,0 +1,77 @@
+<template>
+  <v-form>
+    <h2>login</h2>
+    <v-text-field
+      v-model="email"
+      :error-messages="emailErrors"
+      label="E-mail"
+      required
+      @input="$v.email.$touch()"
+      @blur="$v.email.$touch()"
+    ></v-text-field>
+
+      <v-text-field
+      v-model="password"
+      :error-messages="passwordErrors"
+      label="Password"
+      required
+      @input="$v.password.$touch()"
+      @blur="$v.password.$touch()"
+    ></v-text-field>
+  
+  <v-container fluid>
+    <v-btn class="mr-4" @click="submit">
+      submit
+    </v-btn>
+  <div class="d-flex justify-end mt-5">
+    <p>
+      Нет аккаунта?
+    </p>
+    <router-link to="/register">Зарегистрироваться</router-link>
+  </div>
+  </v-container>
+  </v-form>
+</template>
+
+<script>
+  import { validationMixin } from 'vuelidate'
+  import { required, email, minLength } from 'vuelidate/lib/validators'
+
+  export default {
+    mixins: [validationMixin],
+
+    validations: {
+      email: { required, email },
+      password: { required,minLength}
+    },
+
+    data: () => ({
+      email: '',
+      password: ''
+    }),
+
+    computed: {
+      emailErrors () {
+        const errors = []
+        if (!this.$v.email.$dirty) return errors
+        !this.$v.email.email && errors.push('Must be valid e-mail')
+        !this.$v.email.required && errors.push('E-mail is required')
+        return errors
+      },
+      passwordErrors(){
+        const passwordErrors = []
+        if(!this.$v.password.$dirty) return passwordErrors
+        !this.$v.password.required && passwordErrors.push('Password is required')
+        this.$v.password.$model.length < 6 && passwordErrors.push('Password must be have 6 symbols')
+        return passwordErrors
+      }
+      
+    },
+
+    methods: {
+      submit () {
+        this.$v.$touch()
+      },
+    },
+  }
+</script>
