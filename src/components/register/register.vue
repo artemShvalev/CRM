@@ -1,51 +1,94 @@
 <template>
-<v-form>
-  <h4>Register</h4>
-  <v-card>
-    <v-card-title>Домашняя бухгалтерия</v-card-title>
-    <div>
+<v-container grid-list-xs>
+  <v-form  class="d flex align-center w-4">
+   <h2>Зарегистрироваться</h2>
+    <v-text-field
+      v-model="name"
+      :error-messages="nameErrors"
+      :counter="10"
+      label="Name"
+      required
+      @input="$v.name.$touch()"
+      @blur="$v.name.$touch()"
+    ></v-text-field>
+    <v-text-field
+      v-model="email"
+      :error-messages="emailErrors"
+      label="E-mail"
+      required
+      @input="$v.email.$touch()"
+      @blur="$v.email.$touch()"
+    ></v-text-field>
       <v-text-field
-          id="email"
-          type="text"
-          label="Type your emil"
-      />
-      <small></small>
-    </div>
-    <div>
-      <v-text-field
-          id="password"
-          type="password"
-          class="validate"
-          label="Type your password"
-      />
-      <small></small>
-    </div>
-    <div>
-      <v-text-field
-          id="name"
-          type="text"
-          class="validate"
-          label="your name"
-      />
-      <small></small>
-    </div>
-      <v-checkbox label="i confirm you rules"  value="value"></v-checkbox>
-  </v-card>
-  <div class="card-action">
-    <div>
-      <button
-          class="btn waves-effect waves-light auth-submit"
-          type="submit"
-      >
-        Зарегистрироваться
-        <v-icon>send</v-icon>
-      </button>
-    </div>
+      v-model="password"
+      :error-messages="passwordErrors"
+      label="Password"
+      required
+      @input="$v.password.$touch()"
+      @blur="$v.password.$touch()"
+    ></v-text-field>
 
-    <p class="center">
-      Уже есть аккаунт?
-      <a href="/">Войти!</a>
-    </p>
-  </div>
-</v-form>
+    <v-btn
+      class="mr-4"
+      @click="submit"
+    >
+      Зарегистрироваться
+    </v-btn>
+    <v-btn>
+      Войти
+    </v-btn>
+  </v-form>
+</v-container>
+ 
 </template>
+
+<script>
+  import { validationMixin } from 'vuelidate'
+  import { required, maxLength, email } from 'vuelidate/lib/validators'
+
+  export default {
+    mixins: [validationMixin],
+
+    validations: {
+      name: { required, maxLength: maxLength(10)},
+      email: { required, email },
+      password: { required, maxLength: maxLength(6)}
+    },
+
+    data: () => ({
+      name: '',
+      email: '',
+      password: '',
+    }),
+
+    computed: {
+      nameErrors () {
+        const nameErrors = []
+        if (!this.$v.name.$dirty) return nameErrors
+        !this.$v.name.maxLength && nameErrors.push('Name must be at most 10 characters long')
+        !this.$v.name.required && nameErrors.push('Name is required.')
+        return nameErrors
+      },
+      emailErrors () {
+        const emailErrors = []
+        if (!this.$v.email.$dirty) return emailErrors
+        !this.$v.email.email && emailErrors.push('Must be valid e-mail')
+        !this.$v.email.required && emailErrors.push('E-mail is required')
+        return emailErrors
+      },
+      passwordErrors () {
+        const passwordErrors = []
+        if(!this.$v.password.$dirty) return passwordErrors
+        !this.$v.password.required && passwordErrors.push('Password is required')
+        this.$v.password.$model.length < 6 && passwordErrors.push('Password must be have 6 symbols')
+        return passwordErrors
+      }
+    },
+
+    methods: {
+      submit () {
+        this.$v.$touch()
+      },
+    },
+  }
+</script>

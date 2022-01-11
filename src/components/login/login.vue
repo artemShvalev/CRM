@@ -1,6 +1,6 @@
 <template>
-  <v-form>
-    <h2>login</h2>
+  <v-form class="d flex align-center w-4">
+    <h2 class="title">login</h2>
     <v-text-field
       v-model="email"
       :error-messages="emailErrors"
@@ -23,7 +23,7 @@
     <v-btn class="mr-4" @click="submit">
       submit
     </v-btn>
-  <div class="d-flex justify-end mt-5">
+  <div class="d-flex justify-end">
     <p>
       Нет аккаунта?
     </p>
