@@ -1,6 +1,6 @@
 <template>
 <v-container grid-list-xs>
-  <v-form  class="d flex align-center w-4">
+  <v-form  class="d flex align-center w-4" @submit.prevent="registerNewUser">
    <h2>Зарегистрироваться</h2>
     <v-text-field
       v-model="name"
@@ -46,9 +46,9 @@
 
     <v-btn
       class="mr-4"
-      @click.prevent="submit"
       color="green"
       text
+      type="submit"
     >
       Зарегистрироваться
     </v-btn>
@@ -108,7 +108,7 @@
     },
 
     methods: {
-      submit () {
+    async registerNewUser () {
         if(this.$v.$invalid){
           this.$v.$touch()
           return
@@ -119,9 +119,12 @@
           password: this.password,
           name: this.name
         }
-        console.log(formData)
-
+        
+        try {
+        await this.$store.dispatch('register', formData)
         this.$router.push('/')
+        // eslint-disable-next-line no-empty
+        }catch(e){}
       },
     },
   }

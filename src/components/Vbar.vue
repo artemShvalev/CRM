@@ -29,7 +29,7 @@
             <a href="#" @click.prevent="logout"> Выйти </a>
           </v-list-item>
         </v-list>
-        <VAlert v-if="logout === true"/>
+        <VAlert v-if="logout"/>
       </v-menu>
       <v-btn class="btn-small right">
         <i class="material-icons">refresh</i>
@@ -46,7 +46,9 @@ export default {
     interval: null
   }),
   methods: {
-    logout(){
+   async logout(){
+      await this.$store.dispatch('logout')
+
      this.$router.push('/login?message=logout') 
     }
   },

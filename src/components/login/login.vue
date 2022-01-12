@@ -1,5 +1,5 @@
 <template>
-  <v-form class="d flex align-center w-4" >
+  <v-form class="d flex align-center w-4" @submit.prevent="submit">
     <h2 class="title">login</h2>
     <v-text-field
       v-model="email"
@@ -20,7 +20,7 @@
     ></v-text-field>
   
   <v-container fluid>
-    <v-btn class="mr-4"  color="green" text @click.prevent="submit">
+    <v-btn class="mr-4" type="submit"  color="green" text>
       submit
     </v-btn>
   <div class="d-flex justify-end mx-5">
@@ -68,7 +68,7 @@
     },
 
     methods: {
-      submit () {
+    async submit () {
         if(this.$v.$invalid){
         this.$v.$touch()
         return
@@ -78,8 +78,11 @@
           email: this.email,
           password: this.password
         }
-        console.log(formData)
+        try {
+        await this.$store.dispatch('login', formData)
         this.$router.push('/')
+        // eslint-disable-next-line no-empty
+        }catch(e) {}
       },
     },
   }
