@@ -1,6 +1,6 @@
 <template>
 <div>
-    <v-navigation-drawer app @isOpen="drawer = !drawer">
+    <v-navigation-drawer app>
       <v-list>
       <v-list-item>
         <router-link to="/">Счет</router-link>
@@ -23,18 +23,6 @@
 </template>
 
 <script>
-import {mapMutations} from "vuex"
 export default {
-  props: {
-    drawer: {
-      type: Boolean,
-      required: true
-    }
-  },
-  methods:{
-    ...mapMutations([
-      'isOpen'
-    ])
-  }
 }
 </script>
