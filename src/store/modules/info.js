@@ -23,6 +23,6 @@ export default {
     },
   },
   getters: {
-    info: (state) => state.info,
+    info: s => s.info,
   },
 };

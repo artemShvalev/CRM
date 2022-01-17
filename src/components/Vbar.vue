@@ -14,7 +14,7 @@
           v-bind="attrs"
           v-on="on"
         >
-                          {{ name }}
+          {{ name }}
           <v-icon class="mr-0"> mdi-menu-down </v-icon>
         </v-btn>
       </template>
@@ -31,8 +31,8 @@
       </v-list>
       <VAlert v-if="logout" />
     </v-menu>
-    <v-btn class="btn-small right">
-      <i class="material-icons">refresh</i>
+    <v-btn icon @click="refresh">
+      <v-icon color="green">refresh</v-icon>
     </v-btn>
   </v-app-bar>
 </template>
@@ -53,8 +53,14 @@ export default {
   methods: {
     async logout() {
       await this.$store.dispatch("logout");
-      this.$router.push("/login?message=logout");
+      await  this.$router.push("/login?message=logout");
     },
+  async refresh(){
+      this.$store.state.loading = true
+      this.currency = await this.$store.dispatch('fetchCurrency')
+      this.$store.state.loading = false
+
+    }
   },
   mounted() {
     this.interval = setInterval(() => {

@@ -1,24 +1,23 @@
 <template>
-  <v-app app>
+  <div>
       <h1>Редактировать</h1>
     <v-form>
       <div>
         <v-select :categories="categories" label="Выберите категорию"/>
       </div>
 
-        <label for="name">Название</label>
-        <v-text-field type="text" id="name" />
-
-        <label for="limit">Лимит</label>
-        <v-text-field id="limit" type="number" />
+      <v-text-field id="name" type="text" full-width placeholder="Название"/>
 
 
-      <v-btn type="submit" light color="green" :text="true">
+      <v-text-field id="limit" type="text" placeholder="Лимит"/>
+
+
+      <v-btn type="submit"  color="red" :text="true" icon>
         Обновить
-        <v-icon>send</v-icon>
+        <v-icon>mdi-refresh</v-icon>
       </v-btn>
     </v-form>
-  </v-app>
+  </div>
 </template>
 
 <script>
