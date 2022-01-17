@@ -31,22 +31,6 @@
                     <td>12121</td>
                     <td>12.12.12</td>
                   </tr>
-
-                  <tr>
-                    <td>руб</td>
-                    <td>12121</td>
-                    <td>12.12.12</td>
-                  </tr>
-                  <tr>
-                    <td>руб</td>
-                    <td>12121</td>
-                    <td>12.12.12</td>
-                  </tr>
-                  <tr>
-                    <td>руб</td>
-                    <td>12121</td>
-                    <td>12.12.12</td>
-                  </tr>
                 </tbody>
               </template>
             </v-simple-table>

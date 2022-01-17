@@ -1,6 +1,6 @@
 <template>
 <v-container grid-list-xs>
-  <v-form  class="d flex align-center w-4">
+  <v-form  class="d flex align-center w-4" @submit.prevent="registerNewUser">
    <h2>Зарегистрироваться</h2>
     <v-text-field
       v-model="name"
@@ -28,14 +28,34 @@
       @blur="$v.password.$touch()"
     ></v-text-field>
 
+       <v-checkbox v-model="checkbox" color="green ligthen-1">
+      <template v-slot:label>
+        <div v-if="checkbox===false">
+          I agree this.. 
+        </div>
+
+        <div v-if="checkbox===true" >
+          RULESSSSSSSSSS
+          <v-icon color="green ligthen-2" size="x-large">
+            mdi-chess-king
+          </v-icon>
+        </div>
+
+      </template>
+    </v-checkbox>
+
     <v-btn
       class="mr-4"
-      @click="submit"
+      color="green"
+      text
+      type="submit"
     >
       Зарегистрироваться
     </v-btn>
-    <v-btn>
+    <v-btn color="red" text>
+      <router-link to="/login" tag="button">
       Войти
+      </router-link>
     </v-btn>
   </v-form>
 </v-container>
@@ -52,13 +72,15 @@
     validations: {
       name: { required, maxLength: maxLength(10)},
       email: { required, email },
-      password: { required, maxLength: maxLength(6)}
+      password: { required, maxLength: maxLength(6)},
+      checkbox: {checked: value => value}
     },
 
     data: () => ({
       name: '',
       email: '',
       password: '',
+      checkbox: false
     }),
 
     computed: {
@@ -86,8 +108,23 @@
     },
 
     methods: {
-      submit () {
-        this.$v.$touch()
+    async registerNewUser () {
+        if(this.$v.$invalid){
+          this.$v.$touch()
+          return
+        }
+
+        const formData = {
+          email: this.email,
+          password: this.password,
+          name: this.name
+        }
+        
+        try {
+        await this.$store.dispatch('register', formData)
+        this.$router.push('/')
+        // eslint-disable-next-line no-empty
+        }catch(e){}
       },
     },
   }
