@@ -1,23 +1,30 @@
 <template>
-<div>
-    <h3>Категории</h3>
+  <v-app app>
     <v-main >
       <v-container fluid>
-      <v-row class="d-flex justify-space-between">
-      <Vcategoriescreate/>
+        <v-col cols="12" no-wrap gutters>
+      <Vcategoriescreate @created="addNewCategory"/>
       <Vcategoriesedit/>
-      </v-row>
+        </v-col>
       </v-container>
       </v-main>
-      </div>
+  </v-app>
 </template>
 
 <script>
 import Vcategoriescreate from "./Vcategoriescreate"
 import Vcategoriesedit from "./Vcategoriesedit"
 export default {
+  data: () => ({
+    categories: []
+  }),
   components: {
     Vcategoriescreate, Vcategoriesedit
+  },
+  methods: {
+    addNewCategory(category){
+        this.categories.push(category)
+    }
   }
 }
 </script>

@@ -4,6 +4,9 @@ import router from "./router";
 import store from "./store";
 import vuetify from "./plugins/vuetify";
 import dateFilter from "./filters/date.filters";
+import currencyFilter from "./filters/currency"
+import loader from "./components/loader.vue"
+import Vuelidate from 'vuelidate'
 
 import firebase from "firebase/compat/app";
 
@@ -38,4 +41,7 @@ firebase.auth().onAuthStateChanged(() => {
 
 Vue.config.productionTip = false;
 
+Vue.use(Vuelidate)
 Vue.filter("date", dateFilter);
+Vue.filter('currency', currencyFilter)
+Vue.component('loader', loader)

@@ -9,7 +9,7 @@
 <script>
 import Vnav from '@/components/Vnav';
 import Vbar from '@/components/Vbar';
-import Vmain from '@/components/Vmain';
+import Vmain from '@/components/home/Vmain';
 export default {
   name: "Home",
   components: {
