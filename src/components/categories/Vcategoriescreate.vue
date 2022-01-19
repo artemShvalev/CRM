@@ -50,7 +50,6 @@
           this.title  = ''
           this.limit = 100
           this.$v.reset()
-          this.$vuetify.mocks
           this.$emit('created', category)
           // eslint-disable-next-line no-empty
         } catch(e){
