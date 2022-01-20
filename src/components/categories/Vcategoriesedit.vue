@@ -3,9 +3,9 @@
       <h1>Редактировать</h1>
     <v-form @submit.prevent="submit">
       <div>
-        <select v-model="current">
-          <option v-for="c of categories" :key="c.id">{{c.title}}</option>
-        </select>
+        <v-select v-model="current" name="Выберите категорию" :items="categories">
+          <option v-for="c of categories" :key="c.id" :value="c.id">{{c.title}}</option>
+        </v-select>
       </div>
 
       <v-text-field id="name" type="text" full-width placeholder="Название"
@@ -67,10 +67,10 @@ export default {
     }
   },
   watch: {
-    current(catId){
-      const {title, limit} = this.categories.find(c => c.id  === catId)
-      this.title = title
-      this.limit = limit
+  async current(catId){
+   const {title, limit} = await this.categories.find(c => c.id  === catId)
+      this.title = await title
+      this.limit = await limit
     }
   },
   created(){

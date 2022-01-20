@@ -1,5 +1,5 @@
 <template>
-  <div class="d-flex justify-end">
+  <div class="d-flex justify-start">
     <v-btn color="success" icon>
       <router-link to="/record">
         <v-icon> mdi-plus </v-icon>
