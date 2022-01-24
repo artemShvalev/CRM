@@ -12,7 +12,7 @@
 
 <script>
   export default {
- props: ['base_code, target_code'],
+ props: ['base_code', 'target_code'],
   data: () => ({
     currencies: []
   }),

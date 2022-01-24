@@ -83,6 +83,7 @@ export default {
  async submit(){
       if(this.$v.$invalid){
         this.$v.touch()
+        return
       }
       try{
         const categoryData = {
