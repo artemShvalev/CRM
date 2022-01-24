@@ -7,7 +7,7 @@
         <v-alert outlined color="green" v-if="alert">
           Вы успешно создали запись
         </v-alert>
-        <v-form @submit.prevent="submit">
+        <v-form @submit.prevent="submitRecord">
         <v-row>
          <v-col
           class="d-flex"
@@ -118,8 +118,9 @@ export default {
    }
   },
   methods: {
-  async  submit(){
+  async  submitRecord(){
       if(this.$v.$invalid){
+        this.$v.$touch()
         return
       }
       if (this.canCreateRecord){
@@ -142,7 +143,7 @@ export default {
           // eslint-disable-next-line no-empty
         } catch (e) {}
       } else{
-       alert(`Недостаточно средств на счете(${this.amount - this.info.bill})`)
+       alert(`Недостаточно средств на счете (${this.amount - this.info.bill})`)
       }
     }
   },

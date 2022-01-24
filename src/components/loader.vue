@@ -56,7 +56,7 @@ export default {
     computed:{
       colors(){
         const colors = ['#3949AB','#26A69A','#FFA000','#F4511E']
-        return colors[Math.floor(Math.random() * 3)]
+        return colors[Math.floor(Math.random() * 4)]
       }
     }
 };

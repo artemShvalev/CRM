@@ -122,7 +122,7 @@
         
         try {
         await this.$store.dispatch('register', formData)
-        this.$router.push('/')
+        await this.$router.push('/')
         // eslint-disable-next-line no-empty
         }catch(e){}
       },
