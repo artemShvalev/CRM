@@ -1,41 +1,43 @@
 <template>
   <v-main>
-    <h1 class="text-left">История записей</h1>
-    <v-container d-flex fluid>
-      <div class="history-chart">
+    <h1 class="ma-4">История записей</h1>
+    <loader v-if="loading"/>
+<!--    <p v-else-if="records.length === 0">Историй записей нет</p>-->
+    <v-container fluid v-else>
+      <div>
         <canvas></canvas>
       </div>
-          <v-simple-table fixed-header height="200px">
-            <template v-slot:default>
-              <thead>
-                <tr>
-                  <th>#</th>
-                  <th>Сумма</th>
-                  <th>Дата</th>
-                  <th>Категория</th>
-                  <th>Тип</th>
-                  <th>Открыть</th>
-                </tr>
-              </thead>
-
-              <tbody>
-                <tr>
-                  <td>1</td>
-                  <td>1212</td>
-                  <td>12.12.32</td>
-                  <td>name</td>
-                  <td>
-                    <span class="white-text badge red">Расход</span>
-                  </td>
-                  <td>
-                    <button class="btn-small btn">
-                      <v-icon>open_in_new</v-icon>
-                    </button>
-                  </td>
-                </tr>
-              </tbody>
-            </template>
-          </v-simple-table>
+      <!-- Component-->
+         <VHistoryTable :records="records"/>
     </v-container>
   </v-main>
 </template>
+
+<script>
+import VHistoryTable from "./VHistoryTable";
+import loader from '../loader'
+export default {
+  components: {VHistoryTable, loader},
+  data: () => ({
+    loading: true,
+    records: [],
+    categories: []
+  }),
+  async mounted(){
+    // this.records = await this.$store.dispatch('fetchRecords')
+    const records = await this.$store.dispatch('fetchRecords')
+    this.categories = await this.$store.dispatch('fetchCategories')
+
+    this.records = records.map(record => {
+      return {
+        ...record,
+        categoryName: this.categories.find(c => c.id === record.categoryId).title,
+        typeClass: record.type === 'income' ? 'green' : 'red',
+        typeText: record.type === 'income' ? 'Доход' : 'Рассход',
+      }
+    })
+
+    this.loading = false
+  }
+}
+</script>
