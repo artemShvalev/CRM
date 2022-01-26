@@ -4,7 +4,7 @@
       <loader v-if="loading"/>
       <v-banner app color="green" v-else-if="categories.length === 0"> Категорий пока нет <router-link to="/categories">Добавьте свою первую категорию</router-link></v-banner>
       <v-container fluid v-else>
-        <v-alert outlined color="green" v-if="alert">
+        <v-alert outlined color="green" v-if="alert === true">
           Вы успешно создали запись
         </v-alert>
         <v-form @submit.prevent="submitRecord">
@@ -14,9 +14,14 @@
           cols="12"
           sm="6"
         >
-        <select v-model="category">
-          <option v-for="c of categories" :key="c.id" :value="c.id">{{c.title}}</option>
-        </select>
+           <v-select
+               v-model="category"
+               name="categories"
+               :items="categories"
+               item-text="title"
+               item-value="catId"
+               label="Выберите категорию"
+           />
       </v-col>
       </v-row>
           <v-radio-group v-model="type">
@@ -59,7 +64,7 @@
           outlined
           icon
           class="mx-5 d-flex justify-center align-center"
-          :disabled="amount < 100 && description === '' "
+          :disabled="amount < 100 || description === '' "
       >
           <v-icon>mdi-plus</v-icon>
       </v-btn>
@@ -78,8 +83,8 @@ export default {
       categories: [],
       radioGroup: false,
       category: null,
-      type: 'income',
-      amount: null,
+      type: 'income' || 'outcome',
+      amount: 100,
       description: '',
       alert: false
     }),
@@ -106,13 +111,13 @@ export default {
       if (this.type === 'income'){
         return true
       }
-
       return this.info.bill >= this.amount
     }
   },
  async mounted(){
    this.categories = await this.$store.dispatch('fetchCategories')
    this.loading = false
+
    if (this.categories.length){
      this.category = this.categories[0].id
    }

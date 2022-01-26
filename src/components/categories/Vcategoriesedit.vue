@@ -3,24 +3,25 @@
       <h1>Редактировать</h1>
     <v-form @submit.prevent="submit">
       <div>
-        <v-select v-model="current" name="Выберите категорию" :items="categories">
-          <option v-for="c of categories" :key="c.id" :value="c.id">{{c.title}}</option>
-        </v-select>
+        <v-select
+            v-model="current"
+            name="categories"
+            :items="categories"
+            item-text="title"
+            item-value="catId"
+            label="Выберите категорию"
+        />
       </div>
 
-      <v-text-field id="name" type="text" full-width placeholder="Название"
-                    v-model="title"
+      <v-text-field type="text" full-width placeholder="Название"
+                    v-model.trim="title"
                     :error-messages="errors"
       />
-
-
-      <v-text-field id="limit" type="number" placeholder="Допустимое колличество 100" prefix="₽" color="green"
+      <v-text-field type="number" placeholder="Допустимое колличество 100" prefix="₽" color="green"
                     v-model.number="limit"
                     :class="{red: this.$v.limit.$dirty && !this.$v.limit.minValue}"
                     :error-messages="limitErrors"
       />
-
-
       <v-btn type="submit"  color="red" :text="true" icon>
         Обновить
         <v-icon>mdi-refresh</v-icon>
@@ -44,8 +45,8 @@ export default {
   data(){
     return {
       title: '',
-      limit: 100,
-      current: null
+      limit: null,
+      current: ''
     }
   },
   validations: {
@@ -67,34 +68,34 @@ export default {
     }
   },
   watch: {
-  async current(catId){
-   const {title, limit} = await this.categories.find(c => c.id  === catId)
-      this.title = await title
-      this.limit = await limit
+current(catId) {
+    const {title, limit} =  this.categories.find(c => c.id === catId)
+      this.title =  title
+      this.limit = limit
     }
   },
-  created(){
+  created() {
     const {id, title, limit} = this.categories[0]
     this.current = id
     this.title = title
     this.limit = limit
   },
   methods: {
- async submit(){
-      if(this.$v.$invalid){
+    async submit() {
+      if (this.$v.$invalid) {
         this.$v.touch()
         return
       }
-      try{
+      try {
         const categoryData = {
           id: this.current,
           title: this.title,
           limit: this.limit
         }
-       await this.$store.dispatch('updateCategory', categoryData)
+        await this.$store.dispatch('updateCategory', categoryData)
         this.$emit('updated', categoryData)
         // eslint-disable-next-line no-empty
-      } catch (e){}
+      } catch (e) {}
     }
   }
 }

@@ -1,17 +1,15 @@
 <template>
   <v-app app>
     <v-main >
-      <v-container fluid>
+      <loader v-if="loading" />
+      <v-container fluid v-else>
         <v-col cols="12" no-wrap gutters>
-          <loader v-if="loading" />
-          <div v-else>
       <Vcategoriescreate @created="addNewCategory"/>
       <Vcategoriesedit
           :categories="categories"
           :key="categories.length + updateCount"
           @updated="updateCategories"
       />
-          </div>
         </v-col>
       </v-container>
       </v-main>
