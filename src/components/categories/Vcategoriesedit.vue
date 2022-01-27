@@ -1,17 +1,27 @@
 <template>
   <div>
       <h1>Редактировать</h1>
-    <v-form @submit.prevent="submit">
-      <div>
-        <v-select
-            v-model="current"
-            name="categories"
-            :items="categories"
-            item-text="title"
-            item-value="catId"
-            label="Выберите категорию"
-        />
+    <form @submit.prevent="submit">
+<!--      <div>-->
+<!--        <v-select-->
+<!--            v-model="current"-->
+<!--            name="categories"-->
+<!--            :items="categories"-->
+<!--            item-text="title"-->
+<!--            item-value="catId"-->
+<!--        />-->
+<!--      </div>-->
+
+      <div class="input-field" >
+        <select  v-model="current" class="select" >
+          <option
+              v-for="c of categories"
+              :key="c.id"
+              :value="c.id"
+          >{{c.title}}</option>
+        </select>
       </div>
+
 
       <v-text-field type="text" full-width placeholder="Название"
                     v-model.trim="title"
@@ -26,7 +36,7 @@
         Обновить
         <v-icon>mdi-refresh</v-icon>
       </v-btn>
-    </v-form>
+    </form>
   </div>
 </template>
 
@@ -45,8 +55,8 @@ export default {
   data(){
     return {
       title: '',
-      limit: null,
-      current: ''
+      limit: 100,
+      current: null
     }
   },
   validations: {
@@ -68,11 +78,12 @@ export default {
     }
   },
   watch: {
-current(catId) {
-    const {title, limit} =  this.categories.find(c => c.id === catId)
-      this.title =  title
-      this.limit = limit
-    }
+    current(catId) {
+      const {title, limit} =  this.categories.find(categories => categories.id === catId)
+        this.title =  title
+        this.limit = limit
+      console.log()
+    },
   },
   created() {
     const {id, title, limit} = this.categories[0]
@@ -100,3 +111,12 @@ current(catId) {
   }
 }
 </script>
+
+<style scoped>
+.select{
+  display: inline-block;
+  width: 300px;
+  height: 40px;
+  line-height: 30px;
+}
+</style>

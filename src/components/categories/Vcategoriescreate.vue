@@ -6,7 +6,7 @@
                       v-model="title"
                       :error-messages="errors"
         />
-        <v-text-field id="limit" type="number" placeholder="Допустимое колличество 100" prefix="₽" color="green"
+        <v-text-field id="limit" type="number" placeholder="Допустимое колличество 100₽" prefix="₽" color="green"
                       v-model.number="limit"
                       :class="{red: this.$v.limit.$dirty && !this.$v.limit.minValue}"
                       :error-messages="limitErrors"
@@ -29,12 +29,12 @@
     data(){
       return {
         title: '',
-        limit: null
+        limit: 100
       }
     },
     validations: {
       title: {required},
-      limit: {minValue: minValue("100")}
+      limit: {minValue: minValue(100)}
     },
     methods: {
      async submitFormCategories(){
@@ -47,10 +47,11 @@
             title: this.title,
             limit: this.limit
           })
+          this.$emit('created', category)
           this.title  = ''
           this.limit = 100
-          this.$v.reset()
-          this.$emit('created', category)
+          this.$v.$reset()
+
           // eslint-disable-next-line no-empty
         } catch(e){
 
