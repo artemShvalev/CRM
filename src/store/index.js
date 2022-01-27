@@ -26,7 +26,7 @@ export default new Vuex.Store({
   },
   actions: {
     fetchCurrency: async function () {
-      // const key = process.env.VUE_APP_KEY
+      // const KEY_API = process.env.VUE_APP_KEY
       let res = await fetch(`https://v6.exchangerate-api.com/v6/1a99b7423b062e0890a94e03/pair/EUR/RUB`, {
         method: 'GET',
       })

@@ -2,12 +2,12 @@
   <v-main>
     <h1 class="ma-4">История записей</h1>
     <loader v-if="loading"/>
-<!--    <p v-else-if="records.length === 0">Историй записей нет</p>-->
+    <p v-else-if="records.length === 0">Историй записей нет</p>
     <v-container fluid v-else>
         <v-container fluid>
               <VHistoryChart
                   :categories="categories"
-                  :recods="records"
+                  :records="records"
               />
         </v-container>
       <!-- Component-->
@@ -29,14 +29,15 @@ export default {
     categories: []
   }),
   async mounted(){
-    this.records = await this.$store.dispatch('fetchRecords')
+    // this.records = await this.$store.dispatch('fetchRecords')
+    const records = await this.$store.dispatch('fetchRecords')
     this.categories = await this.$store.dispatch('fetchCategories')
 
-    this.records.map(record => {
+    this.records = records.map(record => {
       return {
         ...record,
-        categoryName: this.categories.find(c => c.id === record.categoryId).title,
-        typeClass: record.type === 'income' ? 'green' : 'red',
+        categoryName: this.categories.find(c => c.id === record.categoryId),
+        typeClass: record.type === 'income' ? 'blue' : 'red',
         typeText: record.type === 'income' ? 'Доход' : 'Рассход',
       }
     })

@@ -7,30 +7,49 @@
         <v-alert outlined color="green" v-if="alert === true">
           Вы успешно создали запись
         </v-alert>
-        <v-form @submit.prevent="submitRecord">
+        <form @submit.prevent="submitRecord">
         <v-row>
          <v-col
           class="d-flex"
           cols="12"
           sm="6"
         >
-           <v-select
-               v-model="category"
-               name="categories"
-               :items="categories"
-               item-text="title"
-               item-value="catId"
-               label="Выберите категорию"
-           />
+           <div class="input-field" >
+             <select ref="select" v-model="category">
+               <option
+                   v-for="c in categories"
+                   :key="c.id"
+                   :value="c.id"
+               >{{c.title}}</option>
+             </select>
+           </div>
       </v-col>
       </v-row>
-          <v-radio-group v-model="type">
-            <v-radio
-                label="Доход"
-                value="income"
-            ></v-radio>
-            <v-radio color="red" label="Рассход" value="outcome"/>
-          </v-radio-group>
+          <v-divider/>
+          <p>
+            <label>
+              <input
+                  class="with-gap"
+                  name="type"
+                  type="radio"
+                  value="income"
+                  v-model="type"
+              />
+              <span>Доход</span>
+            </label>
+          </p>
+          <p>
+            <label>
+              <input
+                  class="with-gap"
+                  name="type"
+                  type="radio"
+                  value="outcome"
+                  v-model="type"
+              />
+              <span>Расход</span>
+            </label>
+          </p>
       <v-text-field
           v-model.number="amount"
           type="number"
@@ -52,8 +71,6 @@
               :error-messages="descriptionError"
               required
           />
-    </v-form>
-  </v-container>
 
       <v-btn
           type="submit"
@@ -68,7 +85,9 @@
       >
           <v-icon>mdi-plus</v-icon>
       </v-btn>
-    </v-main>
+  </form>
+  </v-container>
+ </v-main>
 </template>
 
 <script>
@@ -81,15 +100,14 @@ export default {
     data: () => ({
       loading: true,
       categories: [],
-      radioGroup: false,
       category: null,
-      type: 'income' || 'outcome',
-      amount: 100,
+      type: 'outcome',
+      amount: 1,
       description: '',
       alert: false
     }),
   validations: {
-    amount: {required, minValue: minValue(100)},
+    amount: {required, minValue: minValue(1)},
     description: {required}
   },
   computed: {
@@ -123,25 +141,23 @@ export default {
    }
   },
   methods: {
-  async  submitRecord(){
+  async submitRecord(){
       if(this.$v.$invalid){
         this.$v.$touch()
         return
       }
       if (this.canCreateRecord){
         try {
-          await this.$store.dispatch('createRecord', {
-            categoryId: this.category,
-            amount: this.amount,
-            description: this.description,
-            type: this.type,
-            date: new Date().toJSON()
-          })
+        const  record = {
+          categoryId: this.category,
+          amount: this.amount,
+          description: this.description,
+          type: this.type,
+          date: new Date().toJSON()
+        }
+          await this.$store.dispatch('createRecord', {record})
           const bill = this.type === 'income' ? this.info.bill + this.amount : this.info.bill - this.amount
-
           await this.$store.dispatch('updateInfo', {bill})
-          // eslint-disable-next-line no-empty
-          this.alert = true
           this.$v.$reset()
           this.amount = 1
           this.description = ''
@@ -152,7 +168,15 @@ export default {
       }
     }
   },
-  components: {loader}
+  components: {loader},
 }
 </script>
-  
+
+<style>
+select{
+  display: inline-block;
+  width: 300px;
+  height: 40px;
+  line-height: 30px;
+}
+</style>

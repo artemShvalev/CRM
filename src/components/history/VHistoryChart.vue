@@ -15,10 +15,17 @@ export default {
   extends: Pie,
   mounted() {
     this.renderChart({
-      labels: this.categories.map(c => c.title),
+      labels: this.categories?.map(c => c.title),
       datasets: [{
         label: 'Расходы по катеориям',
-        data: this.records,
+        data: this.categoires.map(c => {
+          return this.records.reduce((total, r) => {
+            if (r.categoryId === c.id && r.type === 'outcome') {
+              total += +r.amount
+            }
+            return total
+          }, 0)
+        }),
         backgroundColor: [
           'rgba(255, 99, 132, 0.2)',
           'rgba(54, 162, 235, 0.2)',

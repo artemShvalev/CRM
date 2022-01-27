@@ -2,8 +2,9 @@ import firebase from "firebase/compat/app";
 
 export default {
     actions: {
-        async createRecord({commit, dispatch}, record){
+        async createRecord({dispatch, commit}, record){
             try {
+
                 const uid = await dispatch('getUid')
                 return await firebase.database().ref(`/users/${uid}/records`).push(record)
             }catch (e){
